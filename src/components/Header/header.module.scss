@@ -1,0 +1,19 @@
+.headerComponent {
+  height: 50px;
+  background-color: lightgrey;
+  .headerContentContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10%;
+    img {
+      width: 50px;
+      padding-right: 10px;
+      cursor: pointer;
+    }
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+}
