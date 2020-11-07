@@ -1,5 +1,8 @@
 .homeContainer {
-  background-color: blue;
-  color: gold;
+  display: flex;
   height: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-right: 10%;
+  margin-left: 10%;
 }

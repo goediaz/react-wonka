@@ -1,19 +1,25 @@
 import React from 'react';
 import styles from './card.module.scss';
+import { Link } from 'wouter';
 
 interface Props {
-  imgSrc?: string;
+  imgSrc: string;
   name: string;
-  gender?: string;
-  position?: string;
-  id: string;
+  gender: string;
+  profession: string;
+  id: number;
 }
 
 const Card = (props: Props) => {
   return (
-    <div className={styles.cardComponent}>
-      {props.name}
-    </div>
+    <Link href={`/${props.id}`} className={styles.cardComponent}>
+      <img src={props.imgSrc} alt="worker img" />
+      <div className={styles.cardContent}>
+      <h3>{props.name}</h3>
+      <p>{props.gender}</p>
+      <p>{props.profession}</p>
+      </div>
+  </Link>
   )
 }
 
