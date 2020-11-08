@@ -9,7 +9,7 @@ export interface IWorkerDetails {
 }
 
 export default async function getWorkerInfo (id?: string): Promise<IWorkerDetails> {
-  const apiUrl = `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id }`;
+  const apiUrl = `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`;
   const response = await fetch(apiUrl);
   const workerJson = await response.json();
   const mappedResults: IWorkerDetails = {
