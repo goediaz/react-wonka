@@ -1,6 +1,6 @@
 import { IWorkerCard } from "../services/getWorkers";
 
-interface ILocalStorageWorkers {
+export interface ILocalStorageWorkers {
   workersData: IWorkerCard[],
   lastPageLoaded: number,
   loadedDate?: number
