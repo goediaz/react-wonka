@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './description.module.scss';
 import { DefaultParams, useRoute  } from "wouter";
 import getWorkerInfo, { IWorkerDetails } from '../../services/getWorkerInfo';
@@ -11,20 +11,21 @@ interface Params extends DefaultParams {
 }
 
 const Description = () => {
+  // eslint-disable-next-line
   const [match, params] = useRoute<Params>("/:id");
   const [workerDetails, setWorkerDetails] = useState<IWorkerDetails>({} as IWorkerDetails);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetchData();
-  }, [])
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const workerData = await getWorkerInfo(params?.id);
     setWorkerDetails(workerData)
     setIsLoading(false);
-  }
+  }, [params?.id])
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchData();
+  }, [fetchData])
 
   return (
     <section className={styles.descriptionContainer}>
