@@ -3,7 +3,7 @@ import throttle from "lodash.throttle";
 
 export default function useVisibility<Element extends HTMLElement>(
   offset = 0,
-  throttleMilliseconds = 100
+  throttleMilliseconds = 2000
 ): [Boolean, React.RefObject<Element>] {
   const [isVisible, setIsVisible] = useState(false);
   const currentElement = createRef<Element>();

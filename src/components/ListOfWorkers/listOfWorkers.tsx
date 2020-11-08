@@ -1,35 +1,40 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './listOfWorkers.module.scss';
 import Card from '../Card/card';
-import getWorkers, { IWorkerCard } from '../../services/getWorkers';
+import { getWorkers, IWorkerCard, getLastQueriedPage } from '../../services/getWorkers';
 import Spinner from '../Spinner/spinner';
 import useVisibility from '../../hooks/useVisibility';
 
 const ListOfWorkers = () => {
   const [workers, setWorkers] = useState<IWorkerCard[]>([])
   const [isLoading, setIsLoading] = useState<boolean>();
-  const [isEndOfList, scrollEndRef] = useVisibility<HTMLDivElement>(100);
-  const [page, setPage] = useState<number>(0);
+  const [isEndOfList, scrollEndRef] = useVisibility<HTMLDivElement>();
+  const [page, setPage] = useState<number>(1);
 
-  const fetchData = useCallback(async () => { 
+  const fetchData = useCallback(async () => {
     const newWorkers = await getWorkers(page)
-    setWorkers(prevWorkers => prevWorkers.concat(newWorkers));
-    setIsLoading(false);
+    if (newWorkers) setWorkers(prevWorkers => prevWorkers.concat(newWorkers.data));
   }, [page])
 
   useEffect(() => {
     setIsLoading(true);
     fetchData();
+    setIsLoading(false);
   }, [])
 
   useEffect(() => {
     if (isEndOfList) {
-      setPage(prevPage => prevPage + 1); 
+      const lastPageCached = getLastQueriedPage();
+      if (lastPageCached && lastPageCached > page) {
+        setPage(lastPageCached + 1); 
+      } else {
+        setPage(prevPage => prevPage + 1); 
+      }
     } 
   }, [isEndOfList])
 
   useEffect(() => {
-    if (page > 0) {
+    if (page > 1) {
       fetchData();
     }
   }, [fetchData, page])
@@ -49,7 +54,7 @@ const ListOfWorkers = () => {
               key={index} 
             />
           )}
-          <div ref={scrollEndRef}></div>
+          <div id="endOfScroll" ref={scrollEndRef}></div>
         </>
       } 
     </div>
