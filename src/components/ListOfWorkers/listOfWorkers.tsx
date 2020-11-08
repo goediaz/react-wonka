@@ -14,12 +14,12 @@ const ListOfWorkers = () => {
   const fetchData = useCallback(async () => { 
     const newWorkers = await getWorkers(page)
     setWorkers(prevWorkers => prevWorkers.concat(newWorkers));
+    setIsLoading(false);
   }, [page])
 
   useEffect(() => {
     setIsLoading(true);
     fetchData();
-    setIsLoading(false);
   }, [])
 
   useEffect(() => {

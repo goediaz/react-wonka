@@ -17,8 +17,10 @@ const Description = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
-    const workerData = await getWorkerInfo(params?.id);
-    setWorkerDetails(workerData)
+    if (params?.id) {
+      const workerData = await getWorkerInfo(params?.id);
+      setWorkerDetails(workerData)
+    }
     setIsLoading(false);
   }, [params?.id])
 
