@@ -6,8 +6,11 @@ import { IWorkerCard } from "../../services/getWorkers";
 
 const Home = () => {
   const [workersFromFilter, setWorkersFromFilter] = useState<IWorkerCard[]>();
-  const filterCallback = (filteredWorkers: IWorkerCard[]): void => {
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
+
+  const filterCallback = (filteredWorkers: IWorkerCard[], isFiltering: boolean): void => {
     setWorkersFromFilter(filteredWorkers);
+    setIsFiltering(isFiltering);
   }
 
   return (
@@ -17,7 +20,7 @@ const Home = () => {
         <h2>Find your Oompa Loompa</h2>
         <h3>There are more than 100k</h3>
       </header>
-      <ListOfWorkers workersFromFilter={workersFromFilter}/>
+      <ListOfWorkers workersFromFilter={workersFromFilter} isFiltering={isFiltering} />
     </section>
   )
 }

@@ -5,7 +5,7 @@ import search from '../../assets/images/search.png';
 import { ILocalStorageWorkers } from '../../utils/workersLocalStorage';
 
 interface Props {
-  callback: (filteredWorkers: IWorkerCard[]) => void
+  callback: (filteredWorkers: IWorkerCard[], isFiltering: boolean) => void
 }
 
 const Filter = (props: Props) => {
@@ -16,7 +16,7 @@ const Filter = (props: Props) => {
     const inputValue = event.target.value;
     setFilterValue(event.target.value);
     if (!inputValue) {
-      props.callback([])
+      props.callback([], false)
     }
   }
 
@@ -44,7 +44,8 @@ const Filter = (props: Props) => {
         filteredResults.push(worker);
       }
     });
-    props.callback(filteredResults);
+    const isItFiltering = filterValue ?  true : false;
+    props.callback(filteredResults, isItFiltering);
   }
 
   return (

@@ -6,7 +6,8 @@ import Spinner from '../Spinner/spinner';
 import useVisibility from '../../hooks/useVisibility';
 
 interface Props {
-  workersFromFilter?: IWorkerCard[]
+  workersFromFilter?: IWorkerCard[],
+  isFiltering: boolean;
 }
 
 const ListOfWorkers = (props: Props) => {
@@ -44,7 +45,7 @@ const ListOfWorkers = (props: Props) => {
   }, [fetchData, page])
 
   const checkIfUserIsFiltering = (): JSX.Element => {
-    if (props.workersFromFilter?.length) {
+    if (props.workersFromFilter && props.isFiltering) {
       return (
         <>
           {props.workersFromFilter.map((worker, index) => 
