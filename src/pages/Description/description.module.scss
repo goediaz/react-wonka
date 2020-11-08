@@ -1,3 +1,29 @@
 .descriptionContainer {
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .leftContainer {
+    img {
+      width: 400px;
+      padding: 10px;
+    }
+  }
+  .rightContainer {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    h3 {
+      margin: 0px;
+    }
+    .detailsText {
+      font-size: 14px;
+      margin: 0px;
+      color: grey;
+    }
+    .workerDescription {
+      margin-top: 10px;
+    }
+  }
 }

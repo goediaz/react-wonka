@@ -1,8 +1,16 @@
 .homeContainer {
   display: flex;
   height: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-right: 10%;
-  margin-left: 10%;
+  flex-direction: column;
+  .homeHeader {
+    text-align: center;
+    h3 {
+      color: grey;
+    }
+  }
+  .homeContent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

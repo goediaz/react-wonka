@@ -1,4 +1,6 @@
-export interface IWorker {
+import { checkWorkerGender, GenderEnum } from '../utils/checkWorkerGender';
+
+export interface IWorkerCard {
   name: string;
   image: string;
   id: number;
@@ -6,17 +8,12 @@ export interface IWorker {
   profession: string;
 }
 
-enum GenderEnum {
-  Male = "Male",
-  Female = "Female"
-}
-
-export default async function getWorkers (page: number = 1): Promise<IWorker[]> {
+export default async function getWorkers (page: number): Promise<IWorkerCard[]> {
   const apiUrl = `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`;
   const response = await fetch(apiUrl);
   const responseToJson = await response.json();
   const { results } = responseToJson;
-  const mappedResults: IWorker[] = results.map((worker: any) => {
+  const mappedResults: IWorkerCard[] = results.map((worker: any) => {
     return {
       name: `${worker.first_name} ${worker.last_name}`,
       id: worker.id,
@@ -26,12 +23,4 @@ export default async function getWorkers (page: number = 1): Promise<IWorker[]> 
     } 
   })
   return mappedResults;
-}
-
-const checkWorkerGender = (worker: any): GenderEnum => {
-  if (worker.gender === 'M') {
-    return GenderEnum.Male;
-  } else {
-    return GenderEnum.Female;
-  }
 }
